@@ -7,7 +7,7 @@ using UnityEngine.ResourceManagement.AsyncOperations;
 
 public class LoadingScreenManager : MonoBehaviour
 {
-    [SerializeField] private AssetReference uiElementAssetReference;
+    [SerializeField] private AssetReferenceGameObject uiElementAssetReference;
     [SerializeField] private GameObject uiElementInstance;
 
     public IEnumerator ShowLoadingScreen( float displayDuration )
