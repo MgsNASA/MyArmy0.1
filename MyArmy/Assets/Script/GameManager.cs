@@ -7,10 +7,10 @@ using UnityEngine.PlayerLoop;
 
 public class GameManager : MonoBehaviour, Restart, Inilization,ICreatable
 {
-    [SerializeField] private GameObject [ ] _scriptObject;
+    [SerializeField] private GameObject [ ] _scriptObjects;
     public void Inilization( )
     {
-        //_scriptObject[0].In
+       
     }
 
     public void Restart( )
@@ -20,6 +20,23 @@ public class GameManager : MonoBehaviour, Restart, Inilization,ICreatable
 
     public void StartGame( )
     {
-       
+        foreach ( GameObject scriptObjectPrefab in _scriptObjects )
+        {
+            // Создаем экземпляр объекта, к которому прикреплен компонент скрипта
+            GameObject newGameObject = Instantiate ( scriptObjectPrefab , Vector3.zero , Quaternion.identity );
+
+            // Получаем компонент скрипта, прикрепленного к созданному объекту
+            Inilization initializationComponent = newGameObject.GetComponent<Inilization> ();
+
+            if ( initializationComponent != null )
+            {
+                // Вызываем метод Initialize() через интерфейс
+                initializationComponent.Inilization ();
+            }
+            else
+            {
+                Debug.LogWarning ( "Компонент, реализующий IInitialization, не найден на объекте " + scriptObjectPrefab.name );
+            }
+        }
     }
 }
